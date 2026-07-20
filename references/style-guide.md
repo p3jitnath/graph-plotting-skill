@@ -47,12 +47,18 @@ Reuse meanings across a paper. The palette is restrained and generally distingui
 ## Minimal pattern
 
 ```python
-from pathlib import Path
+import os
 import sys
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-SKILL_DIR = Path("/path/to/graph-plotting")
+SKILL_DIR = Path(
+    os.environ.get(
+        "GRAPH_PLOTTING_SKILL_DIR",
+        Path.home() / ".codex" / "skills" / "graph-plotting",
+    )
+)
 sys.path.insert(0, str(SKILL_DIR / "scripts"))
 from mpl_style import (
     BASE_COLOUR,

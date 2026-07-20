@@ -51,7 +51,7 @@ CODEX_HOME="$CUSTOM_CODEX_HOME" ./setup
 
 Here, `CUSTOM_CODEX_HOME` is the desired Codex configuration directory.
 
-## Use
+## Usage
 
 Open Codex in a project and ask it to use `$graph-plotting`, for example:
 

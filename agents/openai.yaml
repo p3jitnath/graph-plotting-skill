@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scientific Graph Plotting"
+  short_description: "Create publication-ready scientific figures"
+  default_prompt: "Use $graph-plotting to create a publication-ready scientific figure with consistent typography and export settings."

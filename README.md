@@ -18,10 +18,10 @@ Clone the repository and run the installer:
 ```bash
 git clone git@github.com:p3jitnath/graph-plotting-skill.git
 cd graph-plotting-skill
-./setup
+./setup.sh
 ```
 
-By default, `setup`:
+By default, `setup.sh`:
 
 1. Looks for Helvetica Neue at `~/fonts/helvetica/HelveticaNeue.ttc`.
 2. Installs the skill under `${CODEX_HOME:-$HOME/.codex}/skills/graph-plotting`.
@@ -34,7 +34,7 @@ Restart Codex if the installed skill does not appear in the current session.
 If the font root is somewhere other than `~/fonts`, set `GRAPH_PLOTTING_FONT_DIR`. The directory must contain `helvetica/HelveticaNeue.ttc`:
 
 ```bash
-GRAPH_PLOTTING_FONT_DIR="$FONT_ROOT" ./setup
+GRAPH_PLOTTING_FONT_DIR="$FONT_ROOT" ./setup.sh
 ```
 
 Here, `FONT_ROOT` is a directory chosen by the user that contains the `helvetica` subdirectory.
@@ -46,7 +46,7 @@ Set the same environment variable when running plotting scripts so the helper ca
 Set `CODEX_HOME` before installation:
 
 ```bash
-CODEX_HOME="$CUSTOM_CODEX_HOME" ./setup
+CODEX_HOME="$CUSTOM_CODEX_HOME" ./setup.sh
 ```
 
 Here, `CUSTOM_CODEX_HOME` is the desired Codex configuration directory.
@@ -67,7 +67,7 @@ Pull the latest version and rerun the installer:
 
 ```bash
 git pull --ff-only
-./setup
+./setup.sh
 ```
 
 Confirm the overwrite prompt to replace the installed copy.

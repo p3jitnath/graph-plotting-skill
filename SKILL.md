@@ -15,16 +15,19 @@ Produce restrained, legible scientific figures that remain readable at final man
 4. Set the physical figure size explicitly. Start with `(3.5, 3.0)` inches for one column or `(7.2, 3.05)` inches for two side-by-side panels, then adjust for the content.
 5. Use semantic labels with units, shared scales where comparisons require them, and uncertainty or sample size when scientifically relevant.
 6. Apply `finish_axis()` to ordinary Cartesian axes. Set every panel title with `set_panel_title()` and then call `add_panel_labels()` without a custom `y` value so labels and titles are vertically centred.
-7. Run `audit_figure()` before export. Treat its findings as prompts for visual inspection, fixing unjustified titles, undersized text, wrong fonts, and cramped panels.
+7. Run `audit_figure()` before export with the exact requested font family. Treat its findings as prompts for visual inspection, fixing unjustified titles, undersized text, wrong fonts, and cramped panels. Stop if any text resolves to a different family.
 8. Use `save_figure()` to export PDF and 300-dpi PNG. Close the figure after saving.
 9. Render and inspect the output. Check clipping, overlap, font consistency, color distinguishability, ordering, and readability at final size. Fix warnings rather than suppressing them.
 
 ## Typography
 
-- Default to Helvetica Neue, loaded explicitly from `~/fonts/helvetica/HelveticaNeue.ttc`. Set `GRAPH_PLOTTING_FONT_DIR` when the font root is elsewhere. Do not redistribute the TTC files without confirming their licence.
+- Default to Helvetica Neue. Prefer licensed project-local collections under `<project-root>/fonts/helvetica/`; use `GRAPH_PLOTTING_FONT_DIR` to point the helper at the project font root. The helper searches that environment setting, the current project's `fonts/helvetica/`, and then `~/fonts/helvetica/`, in that order. Do not redistribute the TTC files without confirming their licence.
 - Use `publication_style(font_family="Nimbus Sans")` when a portable or open-font-only deliverable is required; Nimbus Sans is bundled with the skill.
 - Pass any non-default family to the audit, for example `audit_figure(figure, expected_font="Nimbus Sans")`. With the default Helvetica Neue profile, `audit_figure(figure)` is sufficient.
+- Never silently accept a fallback family. Run `audit_figure()` with the exact requested family and stop if any resolved font differs. Record font-parser metadata warnings separately from missing-family or fallback failures: parser warnings may be harmless, but fallback is not.
 - Use a clear hierarchy: ordinary figure text at 8 pt, panel titles at 9 pt, panel labels at 10 pt bold, and annotations/sample sizes at 7 pt. Panel titles must be slightly larger than axis and tick text without dominating the plotted area.
+- Treat 7 pt as the absolute minimum for every visible text element, including map ticks, place labels, annotations, legends, and direct labels. Never lower `audit_figure(..., min_font_size=...)` below 7 merely to fit a page.
+- Audit effective typography at the final LaTeX inclusion size. A figure generated at 8 pt and subsequently scaled to 60% has an effective size of 4.8 pt and fails. Prefer generating the canvas at its intended printed dimensions over generating a large canvas and scaling it down in LaTeX.
 - For multiline titles, use compact line spacing, typically 1.1–1.2, and preserve a visible 2–4 pt gap between the final title line and the axes frame. Prefer `set_panel_title()`, whose defaults are 9 pt, 1.15 line spacing, and 3 pt padding.
 - Use sentence case and concise labels. Put units in parentheses, for example `Mean daily rainfall (mm)`.
 - Keep math typography compatible with sans-serif text through the bundled style configuration.
@@ -43,6 +46,9 @@ Produce restrained, legible scientific figures that remain readable at final man
 - Avoid dense omnibus figures. As a default, keep ordinary plots at least 1.35 in wide and 1.2 in high at final size; split the figure or move secondary panels to supplementary material when this cannot be achieved.
 - Judge typography relative to the physical panel size. Titles, legends, coordinate labels, and annotations must not occupy a disproportionate fraction of the plotting area.
 - Keep related annotations visually grouped with the element they describe. Sample-size labels below categorical axes must sit close to their category labels, without touching them or appearing detached near the figure boundary.
+- Inspect every text element against all immediate neighbours, not only the data: panel labels against titles, axis units, and extreme tick labels; annotations against lines and patch boundaries; place names against geographic markers; and timeline labels against event lines, arrows, and colored intervals.
+- Fail any text element that visually touches another glyph, line, marker, or patch boundary even when bounding boxes do not technically overlap. Reserve visible whitespace around it.
+- Place labels outside their associated marker or patch when an internal label reduces readability. Preserve an unambiguous spatial association through proximity and alignment.
 
 ## Plot-specific checks
 

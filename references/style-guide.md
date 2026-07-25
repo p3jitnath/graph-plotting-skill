@@ -28,7 +28,7 @@ with publication_style():
     findings = audit_figure(figure)
 ```
 
-The helper looks for `Helvetica.ttc` and `HelveticaNeue.ttc` under `~/fonts/helvetica`. Override the font root with `GRAPH_PLOTTING_FONT_DIR`. Because the Helvetica collections are not bundled, verify their availability and licence in every rendering environment. For portable output, select `publication_style(font_family="Nimbus Sans")` and pass the same family to `audit_figure()`.
+The helper looks for `Helvetica.ttc` and `HelveticaNeue.ttc` under `$GRAPH_PLOTTING_FONT_DIR/helvetica`, `<project-root>/fonts/helvetica`, and `~/fonts/helvetica`, in that order. Because the Helvetica collections are not bundled, verify their availability and licence in every rendering environment. For portable output, select `publication_style(font_family="Nimbus Sans")` and pass the same family to `audit_figure()`.
 
 Keep ordinary panels at least 1.35 in wide and 1.2 in high at final size. This is a practical density floor, not permission to fill every available slot. Prefer splitting a dense figure when the panels address separable claims.
 

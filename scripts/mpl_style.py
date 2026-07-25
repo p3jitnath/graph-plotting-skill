@@ -3,6 +3,7 @@
 from contextlib import contextmanager
 import os
 from pathlib import Path
+import warnings
 
 import matplotlib as mpl
 import numpy as np
@@ -10,13 +11,6 @@ from matplotlib import font_manager
 
 ASSET_DIRECTORY = Path(__file__).resolve().parents[1] / "assets"
 FONT_FILES = tuple(sorted(ASSET_DIRECTORY.glob("NimbusSans-*.otf")))
-LOCAL_FONT_DIRECTORY = Path(
-    os.environ.get("GRAPH_PLOTTING_FONT_DIR", str(Path.home() / "fonts"))
-)
-HELVETICA_FILES = (
-    LOCAL_FONT_DIRECTORY / "helvetica" / "Helvetica.ttc",
-    LOCAL_FONT_DIRECTORY / "helvetica" / "HelveticaNeue.ttc",
-)
 SUPPORTED_FONT_FAMILIES = ("Nimbus Sans", "Helvetica", "Helvetica Neue")
 
 OBSERVED_COLOUR = "#222222"
@@ -26,12 +20,24 @@ NEUTRAL_COLOUR = "#595959"
 PALETTE = (BASE_COLOUR, CORRECTED_COLOUR, "#54A24B", "#B279A2", "#F2CF5B")
 
 
-def register_fonts(font_family="Helvetica Neue"):
+def _helvetica_directories(project_root=None):
+    """Return Helvetica directories in explicit, project, then user order."""
+    candidates = []
+    configured_root = os.environ.get("GRAPH_PLOTTING_FONT_DIR")
+    if configured_root:
+        candidates.append(Path(configured_root).expanduser() / "helvetica")
+    root = Path.cwd() if project_root is None else Path(project_root)
+    candidates.append(root.resolve() / "fonts" / "helvetica")
+    candidates.append(Path.home() / "fonts" / "helvetica")
+    return tuple(dict.fromkeys(candidates))
+
+
+def register_fonts(font_family="Helvetica Neue", project_root=None):
     """Register the requested family with Matplotlib.
 
     Nimbus Sans is bundled. Helvetica and Helvetica Neue are optional local
-    profiles loaded from ``~/fonts/helvetica`` (or
-    ``$GRAPH_PLOTTING_FONT_DIR/helvetica``).
+    profiles loaded first from ``$GRAPH_PLOTTING_FONT_DIR/helvetica``, then
+    ``<project_root>/fonts/helvetica``, and finally ``~/fonts/helvetica``.
     """
     if font_family not in SUPPORTED_FONT_FAMILIES:
         raise ValueError(
@@ -44,11 +50,20 @@ def register_fonts(font_family="Helvetica Neue"):
     for font_file in FONT_FILES:
         font_manager.fontManager.addfont(font_file)
     if font_family in ("Helvetica", "Helvetica Neue"):
-        available_files = [path for path in HELVETICA_FILES if path.is_file()]
+        searched_directories = _helvetica_directories(project_root)
+        available_files = []
+        for directory in searched_directories:
+            files = [
+                directory / "Helvetica.ttc",
+                directory / "HelveticaNeue.ttc",
+            ]
+            available_files = [path for path in files if path.is_file()]
+            if available_files:
+                break
         if not available_files:
             raise FileNotFoundError(
-                "Helvetica collections not found in {}"
-                .format(LOCAL_FONT_DIRECTORY / "helvetica")
+                "Helvetica collections not found; searched {}"
+                .format(", ".join(str(path) for path in searched_directories))
             )
         for font_file in available_files:
             font_manager.fontManager.addfont(font_file)
@@ -91,9 +106,10 @@ def rc_params(overrides=None, font_family="Helvetica Neue"):
 def publication_style(
     overrides=None,
     font_family="Helvetica Neue",
+    project_root=None,
 ):
     """Apply the bundled fonts and canonical style without leaking global state."""
-    register_fonts(font_family)
+    register_fonts(font_family, project_root=project_root)
     with mpl.rc_context(rc=rc_params(overrides, font_family=font_family)):
         yield
 
@@ -222,15 +238,22 @@ def audit_figure(
     min_font_size=7.0,
     min_panel_width=1.35,
     min_panel_height=1.2,
+    project_root=None,
 ):
     """Return actionable style findings for a figure before export.
 
     This checks deterministic properties only. It does not replace visual
     review for clipping, accessibility, scientific validity, or clutter.
     """
-    register_fonts(expected_font)
-    figure.canvas.draw()
+    if min_font_size < 7.0:
+        raise ValueError("min_font_size cannot be lower than the 7-pt minimum")
+    with warnings.catch_warnings(record=True) as parser_warnings:
+        warnings.simplefilter("always")
+        register_fonts(expected_font, project_root=project_root)
+        figure.canvas.draw()
     findings = []
+    for warning in parser_warnings:
+        findings.append("Font-parser warning: {}".format(warning.message))
     figure_width, figure_height = figure.get_size_inches()
 
     for index, axis in enumerate(figure.axes, start=1):

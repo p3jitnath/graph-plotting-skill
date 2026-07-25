@@ -5,7 +5,7 @@
 # Usage:
 #   git clone <repo-url>
 #   cd graph-plotting-skill
-#   ./setup
+#   ./setup.sh
 #
 # What this does:
 #   Copies the skill into ${CODEX_HOME:-~/.codex}/skills/graph-plotting/ so Codex

@@ -41,6 +41,7 @@ Produce restrained, legible scientific figures that remain readable at final man
 - Use frameless legends only outside the data or in genuinely empty reserved space. When a legend must sit over a map or other data-rich field, call `place_legend(axis, over_data=True)` to add a semi-transparent white background.
 - Use the shared palette in `mpl_style.py`; assign colors consistently by meaning across panels and figures.
 - Pair color with position, marker, line style, or text whenever color alone would carry essential meaning.
+- Use visual emphasis only when it corresponds to a stated comparison or statistically supported result. Do not highlight a variable, model, or regime merely because it was explored; remove unexplained colour emphasis.
 - Place zero/reference lines behind data in neutral gray.
 - Do not add a title inside a manuscript panel unless the title conveys necessary grouping information; put the scientific explanation in the caption.
 - Avoid dense omnibus figures. As a default, keep ordinary plots at least 1.35 in wide and 1.2 in high at final size; split the figure or move secondary panels to supplementary material when this cannot be achieved.
@@ -56,9 +57,23 @@ Produce restrained, legible scientific figures that remain readable at final man
 - Lines: show observations or uncertainty when available; distinguish overlapping series without relying only on color.
 - Distributions: disclose normalization and binning; prefer ECDFs, intervals, or density-aware summaries when histograms obscure comparison.
 - Maps: use a projection appropriate to the domain, label colorbar units, preserve geographic aspect, and avoid rainbow color maps. For comparable fields, reuse color limits. For anomaly/difference fields, use `shared_symmetric_limits()` across all panels being compared; vary limits only when the caption or figure states why.
+- Geospatial panels: inspect unexpected white regions and determine whether they represent missing data, masks, land or ocean boundaries, or plotting artifacts. Fix artifacts, but retain and explain scientifically meaningful missingness.
 - Coordinate labels: keep longitude, latitude, and ordinary tick labels outside the plotted data. Do not use negative tick padding to pull labels into a map; instead increase margins or adjust the gridliner label positions.
 - Log axes: label them clearly and handle zero/nonpositive values explicitly.
 - Categorical summaries: place sample sizes directly beneath their corresponding category labels. Use `add_sample_sizes()` or, with the x-axis transform, start around `y=-0.10` to `y=-0.14`; adjust visually and reserve only the necessary bottom margin.
+
+## Manuscript-integration audit
+
+Distinguish changes to the source figure from changes to its LaTeX inclusion. When a reviewer asks for a larger figure, first inspect `\includegraphics` scaling and available page width. Do not regenerate or distort the source artwork when full-width inclusion solves the problem.
+
+After compilation, verify:
+
+- The actual page and final printed dimensions.
+- The effective font size after LaTeX scaling.
+- Whether the caption and following interpretive paragraph remain with the figure.
+- Whether enlargement creates a float-only page or disrupts reading order.
+
+When a figure combines domain context with forecast or verification panels, split it into separate figures if the map reduces the size or comparability of the scientific panels.
 
 Read `references/style-guide.md` when choosing dimensions, colors, output rules, or reviewing a finished figure.
 

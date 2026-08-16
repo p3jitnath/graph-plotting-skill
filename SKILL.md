@@ -15,7 +15,7 @@ Produce restrained, legible scientific figures that remain readable at final man
 4. Set the physical figure size explicitly. Start with `(3.5, 3.0)` inches for one column or `(7.2, 3.05)` inches for two side-by-side panels, then adjust for the content.
 5. Use semantic labels with units, shared scales where comparisons require them, and uncertainty or sample size when scientifically relevant.
 6. Apply `finish_axis()` to ordinary Cartesian axes. Set every panel title with `set_panel_title()` and then call `add_panel_labels()` without a custom `y` value so labels and titles are vertically centred.
-7. Run `audit_figure()` before export with the exact requested font family. Treat its findings as prompts for visual inspection, fixing unjustified titles, undersized text, wrong fonts, and cramped panels. Stop if any text resolves to a different family.
+7. Run `audit_figure()` before export with the exact requested font family. Treat its findings as prompts for visual inspection, fixing unjustified titles, undersized text, wrong fonts, and cramped panels. Stop if any text resolves to a different family or falls below the minimum effective size after manuscript scaling.
 8. Use `save_figure()` to export PDF and 300-dpi PNG. Close the figure after saving.
 9. Render and inspect the output. Check clipping, overlap, font consistency, color distinguishability, ordering, and readability at final size. Fix warnings rather than suppressing them.
 
@@ -27,7 +27,7 @@ Produce restrained, legible scientific figures that remain readable at final man
 - Never silently accept a fallback family. Run `audit_figure()` with the exact requested family and stop if any resolved font differs. Record font-parser metadata warnings separately from missing-family or fallback failures: parser warnings may be harmless, but fallback is not.
 - Use a clear hierarchy: ordinary figure text at 8 pt, panel titles at 9 pt, panel labels at 10 pt bold, and annotations/sample sizes at 7 pt. Panel titles must be slightly larger than axis and tick text without dominating the plotted area.
 - Treat 7 pt as the absolute minimum for every visible text element, including map ticks, place labels, annotations, legends, and direct labels. Never lower `audit_figure(..., min_font_size=...)` below 7 merely to fit a page.
-- Audit effective typography at the final LaTeX inclusion size. A figure generated at 8 pt and subsequently scaled to 60% has an effective size of 4.8 pt and fails. Prefer generating the canvas at its intended printed dimensions over generating a large canvas and scaling it down in LaTeX.
+- Audit effective typography at the final LaTeX inclusion size. A figure generated at 8 pt and subsequently scaled to 60% has an effective size of 4.8 pt and fails. Treat any visible text below 7 pt after scaling as a blocking failure. Regenerate at the intended printed dimensions or revise the layout before delivery; do not waive or merely report the failure.
 - For multiline titles, use compact line spacing, typically 1.1–1.2, and preserve a visible 2–4 pt gap between the final title line and the axes frame. Prefer `set_panel_title()`, whose defaults are 9 pt, 1.15 line spacing, and 3 pt padding.
 - Use sentence case and concise labels. Put units in parentheses, for example `Mean daily rainfall (mm)`.
 - Keep math typography compatible with sans-serif text through the bundled style configuration.
@@ -41,9 +41,10 @@ Produce restrained, legible scientific figures that remain readable at final man
 - Use frameless legends only outside the data or in genuinely empty reserved space. When a legend must sit over a map or other data-rich field, call `place_legend(axis, over_data=True)` to add a semi-transparent white background.
 - Use the shared palette in `mpl_style.py`; assign colors consistently by meaning across panels and figures.
 - Pair color with position, marker, line style, or text whenever color alone would carry essential meaning.
+- For phase transitions such as training to inference, encode the distinction redundantly with marker shape, colour, and line continuity. Do not connect phases unless the segment represents a meaningful continuous trajectory.
 - Use visual emphasis only when it corresponds to a stated comparison or statistically supported result. Do not highlight a variable, model, or regime merely because it was explored; remove unexplained colour emphasis.
 - Place zero/reference lines behind data in neutral gray.
-- Do not add a title inside a manuscript panel unless the title conveys necessary grouping information; put the scientific explanation in the caption.
+- Default to no internal plot title for manuscript figures when the caption provides the context. Add a panel title only when it conveys necessary grouping information that the caption and panel label cannot provide.
 - Avoid dense omnibus figures. As a default, keep ordinary plots at least 1.35 in wide and 1.2 in high at final size; split the figure or move secondary panels to supplementary material when this cannot be achieved.
 - Judge typography relative to the physical panel size. Titles, legends, coordinate labels, and annotations must not occupy a disproportionate fraction of the plotting area.
 - Keep related annotations visually grouped with the element they describe. Sample-size labels below categorical axes must sit close to their category labels, without touching them or appearing detached near the figure boundary.
@@ -72,6 +73,10 @@ After compilation, verify:
 - The effective font size after LaTeX scaling.
 - Whether the caption and following interpretive paragraph remain with the figure.
 - Whether enlargement creates a float-only page or disrupts reading order.
+
+Inspect the rendered manuscript page, not only the standalone PDF or PNG. Treat unreadable effective typography, clipping, crowding, or misleading placement in the compiled paper as blocking failures even when the source figure passes its standalone audit.
+
+When the user requests two figures, produce two independent PDF/PNG pairs unless the user explicitly requests one multi-panel canvas. After integrating replacement figures, remove obsolete combined outputs and their stale LaTeX references so the repository contains only the intended figure set.
 
 When a figure combines domain context with forecast or verification panels, split it into separate figures if the map reduces the size or comparability of the scientific panels.
 

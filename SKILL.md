@@ -21,6 +21,7 @@ Produce restrained, legible scientific figures that remain readable at final man
 
 ## Typography
 
+- Use British English spelling, punctuation, and usage in figure labels, legends, annotations, titles, captions, and accompanying prose unless the user or target venue explicitly requires another variety. Preserve official names, quoted text, code, variable names, and dataset or model identifiers.
 - Default to Helvetica Neue. Prefer licensed project-local collections under `<project-root>/fonts/helvetica/`; use `GRAPH_PLOTTING_FONT_DIR` to point the helper at the project font root. The helper searches that environment setting, the current project's `fonts/helvetica/`, and then `~/fonts/helvetica/`, in that order. Do not redistribute the TTC files without confirming their licence.
 - Use `publication_style(font_family="Nimbus Sans")` when a portable or open-font-only deliverable is required; Nimbus Sans is bundled with the skill.
 - Pass any non-default family to the audit, for example `audit_figure(figure, expected_font="Nimbus Sans")`. With the default Helvetica Neue profile, `audit_figure(figure)` is sufficient.

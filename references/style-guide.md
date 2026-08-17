@@ -42,7 +42,7 @@ Keep ordinary panels at least 1.35 in wide and 1.2 in high at final size. This i
 | Neutral annotation/reference line | `#595959` |
 | Additional series | `#54A24B`, `#B279A2`, `#F2CF5B` |
 
-Reuse meanings across a paper. The palette is restrained and generally distinguishable, but no finite palette guarantees accessibility in every context. Verify important distinctions in grayscale and with a color-vision-deficiency preview, and add a non-color encoding where needed.
+Reuse meanings across a paper. The palette is restrained and generally distinguishable, but no finite palette guarantees accessibility in every context. Verify important distinctions in greyscale and with a colour-vision-deficiency preview, and add a non-colour encoding where needed.
 
 ## Minimal pattern
 
@@ -147,5 +147,5 @@ Use `add_sample_sizes(axis, counts, positions)` after setting categorical ticks.
 - Inspect text-to-panel proportions at the figure’s intended publication size, not only in an enlarged preview.
 - Check comparable panels use comparable scales, or visibly explain why they differ.
 - Check ordinary panels meet the 1.35 × 1.2 in density floor at final size; split dense omnibus figures when necessary.
-- Check line styles, markers, and colors remain distinguishable in grayscale and for common color-vision deficiencies.
+- Check line styles, markers, and colours remain distinguishable in greyscale and for common colour-vision deficiencies.
 - Check all output files are reproducible from the plotting script and no interactive state is required.

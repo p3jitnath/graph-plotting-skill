@@ -1,6 +1,6 @@
 ---
 name: graph-plotting
-description: Create, revise, and review publication-ready scientific graphs in Python/Matplotlib with Nature-style Helvetica Neue typography and bundled Nimbus Sans fallback, compact manuscript sizing, accessible colors, clean multi-panel layouts, and vector plus high-resolution raster exports. Use for manuscript figures, benchmark plots, diagnostic charts, plotting scripts, figure style cleanup, font embedding problems, Nature-style Helvetica figures, or requests to match the visual conventions of make_figures.py.
+description: Create, revise, and review publication-ready scientific graphs in Python/Matplotlib with Nature-style Helvetica Neue typography and bundled Nimbus Sans fallback, compact manuscript sizing, accessible colours, clean multi-panel layouts, and vector plus high-resolution raster exports. Use for manuscript figures, benchmark plots, diagnostic charts, plotting scripts, figure style cleanup, font embedding problems, Nature-style Helvetica figures, or requests to match the visual conventions of make_figures.py.
 ---
 
 # Graph Plotting
@@ -17,7 +17,7 @@ Produce restrained, legible scientific figures that remain readable at final man
 6. Apply `finish_axis()` to ordinary Cartesian axes. Set every panel title with `set_panel_title()` and then call `add_panel_labels()` without a custom `y` value so labels and titles are vertically centred.
 7. Run `audit_figure()` before export with the exact requested font family. Treat its findings as prompts for visual inspection, fixing unjustified titles, undersized text, wrong fonts, and cramped panels. Stop if any text resolves to a different family or falls below the minimum effective size after manuscript scaling.
 8. Use `save_figure()` to export PDF and 300-dpi PNG. Close the figure after saving.
-9. Render and inspect the output. Check clipping, overlap, font consistency, color distinguishability, ordering, and readability at final size. Fix warnings rather than suppressing them.
+9. Render and inspect the output. Check clipping, overlap, font consistency, colour distinguishability, ordering, and readability at final size. Fix warnings rather than suppressing them.
 
 ## Typography
 
@@ -40,25 +40,26 @@ Produce restrained, legible scientific figures that remain readable at final man
 - Remove top and right spines for ordinary statistical charts; retain structurally meaningful spines for maps, heatmaps, and specialized axes.
 - Prefer direct labels when they stay uncluttered. Otherwise use `place_legend()`. Keep legends outside plotted marks or in deliberately reserved whitespace. Never cover bars, lines, important map features, or extrema.
 - Use frameless legends only outside the data or in genuinely empty reserved space. When a legend must sit over a map or other data-rich field, call `place_legend(axis, over_data=True)` to add a semi-transparent white background.
-- Use the shared palette in `mpl_style.py`; assign colors consistently by meaning across panels and figures.
-- Pair color with position, marker, line style, or text whenever color alone would carry essential meaning.
+- Use the shared palette in `mpl_style.py`; assign colours consistently by meaning across panels and figures.
+- Pair colour with position, marker, line style, or text whenever colour alone would carry essential meaning.
 - For phase transitions such as training to inference, encode the distinction redundantly with marker shape, colour, and line continuity. Do not connect phases unless the segment represents a meaningful continuous trajectory.
+- Infer categorical meaning from the project context, data, manuscript, and requested design rather than assigning a fixed palette or marker scheme. Encodings such as connected red circles for training and an isolated blue triangle for inference are project-specific examples, not defaults.
 - Use visual emphasis only when it corresponds to a stated comparison or statistically supported result. Do not highlight a variable, model, or regime merely because it was explored; remove unexplained colour emphasis.
 - Place zero/reference lines behind data in neutral gray.
 - Default to no internal plot title for manuscript figures when the caption provides the context. Add a panel title only when it conveys necessary grouping information that the caption and panel label cannot provide.
 - Avoid dense omnibus figures. As a default, keep ordinary plots at least 1.35 in wide and 1.2 in high at final size; split the figure or move secondary panels to supplementary material when this cannot be achieved.
 - Judge typography relative to the physical panel size. Titles, legends, coordinate labels, and annotations must not occupy a disproportionate fraction of the plotting area.
 - Keep related annotations visually grouped with the element they describe. Sample-size labels below categorical axes must sit close to their category labels, without touching them or appearing detached near the figure boundary.
-- Inspect every text element against all immediate neighbours, not only the data: panel labels against titles, axis units, and extreme tick labels; annotations against lines and patch boundaries; place names against geographic markers; and timeline labels against event lines, arrows, and colored intervals.
+- Inspect every text element against all immediate neighbours, not only the data: panel labels against titles, axis units, and extreme tick labels; annotations against lines and patch boundaries; place names against geographic markers; and timeline labels against event lines, arrows, and coloured intervals.
 - Fail any text element that visually touches another glyph, line, marker, or patch boundary even when bounding boxes do not technically overlap. Reserve visible whitespace around it.
 - Place labels outside their associated marker or patch when an internal label reduces readability. Preserve an unambiguous spatial association through proximity and alignment.
 
 ## Plot-specific checks
 
 - Bar charts: start quantitative axes at zero unless a clearly marked alternative is scientifically justified; use bars for discrete summaries, not continuous trends.
-- Lines: show observations or uncertainty when available; distinguish overlapping series without relying only on color.
-- Distributions: disclose normalization and binning; prefer ECDFs, intervals, or density-aware summaries when histograms obscure comparison.
-- Maps: use a projection appropriate to the domain, label colorbar units, preserve geographic aspect, and avoid rainbow color maps. For comparable fields, reuse color limits. For anomaly/difference fields, use `shared_symmetric_limits()` across all panels being compared; vary limits only when the caption or figure states why.
+- Lines: show observations or uncertainty when available; distinguish overlapping series without relying only on colour.
+- Distributions: disclose normalisation and binning; prefer ECDFs, intervals, or density-aware summaries when histograms obscure comparison.
+- Maps: use a projection appropriate to the domain, label colour-bar units, preserve geographic aspect, and avoid rainbow colour maps. For comparable fields, reuse colour limits. For anomaly/difference fields, use `shared_symmetric_limits()` across all panels being compared; vary limits only when the caption or figure states why.
 - Geospatial panels: inspect unexpected white regions and determine whether they represent missing data, masks, land or ocean boundaries, or plotting artifacts. Fix artifacts, but retain and explain scientifically meaningful missingness.
 - Coordinate labels: keep longitude, latitude, and ordinary tick labels outside the plotted data. Do not use negative tick padding to pull labels into a map; instead increase margins or adjust the gridliner label positions.
 - Log axes: label them clearly and handle zero/nonpositive values explicitly.
@@ -77,11 +78,15 @@ After compilation, verify:
 
 Inspect the rendered manuscript page, not only the standalone PDF or PNG. Treat unreadable effective typography, clipping, crowding, or misleading placement in the compiled paper as blocking failures even when the source figure passes its standalone audit.
 
+Before delivery, run an encoding-consistency gate: marker shape, colour, line continuity, legend text, and manuscript caption must describe the same categories and phase relationships. Verify that a distinct phase such as inference remains visually disconnected when it is not part of the training trajectory.
+
+When any encoding changes, update and verify the plotting script, PDF and PNG exports, paper-local figure copy, legend, and manuscript caption as one coordinated change. Do not deliver a partial update or leave stale exports and prose.
+
 When the user requests two figures, produce two independent PDF/PNG pairs unless the user explicitly requests one multi-panel canvas. After integrating replacement figures, remove obsolete combined outputs and their stale LaTeX references so the repository contains only the intended figure set.
 
 When a figure combines domain context with forecast or verification panels, split it into separate figures if the map reduces the size or comparability of the scientific panels.
 
-Read `references/style-guide.md` when choosing dimensions, colors, output rules, or reviewing a finished figure.
+Read `references/style-guide.md` when choosing dimensions, colours, output rules, or reviewing a finished figure.
 
 ## Bundled resources
 

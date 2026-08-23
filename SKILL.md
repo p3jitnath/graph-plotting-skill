@@ -53,6 +53,11 @@ Produce restrained, legible scientific figures that remain readable at final man
 - Inspect every text element against all immediate neighbours, not only the data: panel labels against titles, axis units, and extreme tick labels; annotations against lines and patch boundaries; place names against geographic markers; and timeline labels against event lines, arrows, and coloured intervals.
 - Fail any text element that visually touches another glyph, line, marker, or patch boundary even when bounding boxes do not technically overlap. Reserve visible whitespace around it.
 - Place labels outside their associated marker or patch when an internal label reduces readability. Preserve an unambiguous spatial association through proximity and alignment.
+- Audit vertical and horizontal whitespace explicitly among the super-title, panel titles, axes, colour bars, legends, and footer annotations. Keep panel titles subordinate to the figure-level title and explanatory footer text subordinate to the plotted data.
+- Set a scientifically justified reporting threshold before labelling small pie slices or narrow graphical elements. Leave values below it to the legend or an accompanying table. Use leader lines only when their associations remain unambiguous at publication size.
+- For directly comparable pies, bars, maps, or panels, preserve component order, start angle, colour meaning, axis limits, and orientation unless the scientific comparison requires a documented difference.
+- Give quantities with different populations or aggregations visibly different labels or panel titles. Do not present a rank mean, all-rank summary, cumulative time, and selected-rank profile as though they were equivalent quantities.
+- Match the manuscript's exact variable notation, capitalisation, units, run-independent titles, mathematical form, and difference direction in every visible label.
 
 ## Plot-specific checks
 
@@ -60,7 +65,7 @@ Produce restrained, legible scientific figures that remain readable at final man
 - Lines: show observations or uncertainty when available; distinguish overlapping series without relying only on colour.
 - Distributions: disclose normalisation and binning; prefer ECDFs, intervals, or density-aware summaries when histograms obscure comparison.
 - Maps: use a projection appropriate to the domain, label colour-bar units, preserve geographic aspect, and avoid rainbow colour maps. For comparable fields, reuse colour limits. For anomaly/difference fields, use `shared_symmetric_limits()` across all panels being compared; vary limits only when the caption or figure states why.
-- Geospatial panels: inspect unexpected white regions and determine whether they represent missing data, masks, land or ocean boundaries, or plotting artifacts. Fix artifacts, but retain and explain scientifically meaningful missingness.
+- Geospatial panels: inspect unexpected white regions and determine whether they represent missing data, masks, land or ocean boundaries, or plotting artefacts. Fix artefacts, but retain and explain scientifically meaningful missingness.
 - Coordinate labels: keep longitude, latitude, and ordinary tick labels outside the plotted data. Do not use negative tick padding to pull labels into a map; instead increase margins or adjust the gridliner label positions.
 - Log axes: label them clearly and handle zero/nonpositive values explicitly.
 - Categorical summaries: place sample sizes directly beneath their corresponding category labels. Use `add_sample_sizes()` or, with the x-axis transform, start around `y=-0.10` to `y=-0.14`; adjust visually and reserve only the necessary bottom margin.
@@ -78,13 +83,19 @@ After compilation, verify:
 
 Inspect the rendered manuscript page, not only the standalone PDF or PNG. Treat unreadable effective typography, clipping, crowding, or misleading placement in the compiled paper as blocking failures even when the source figure passes its standalone audit.
 
+Audit readability independently of numerical correctness. Check overlapping labels, faint colours, border opacity, map-number legibility, colour-bar tick spacing, and whether zero or neutral values remain recognisable at final size.
+
 Before delivery, run an encoding-consistency gate: marker shape, colour, line continuity, legend text, and manuscript caption must describe the same categories and phase relationships. Verify that a distinct phase such as inference remains visually disconnected when it is not part of the training trajectory.
 
 When any encoding changes, update and verify the plotting script, PDF and PNG exports, paper-local figure copy, legend, and manuscript caption as one coordinated change. Do not deliver a partial update or leave stale exports and prose.
 
+After regeneration, compare the plotting script, PNG, PDF, paper-local copy, and compiled manuscript page. Remove or clearly exclude cached page renders and stale artefacts containing superseded values. A provenance-bearing filename may retain a run identifier, but visible reader-facing text must use the agreed scientific name.
+
 When the user requests two figures, produce two independent PDF/PNG pairs unless the user explicitly requests one multi-panel canvas. After integrating replacement figures, remove obsolete combined outputs and their stale LaTeX references so the repository contains only the intended figure set.
 
 When a figure combines domain context with forecast or verification panels, split it into separate figures if the map reduces the size or comparability of the scientific panels.
+
+Finish with this consistency pass: identify the canonical experiment and source data; regenerate from reproducible scripts; compile the manuscript; inspect the relevant pages at final size; search the complete source for stale values and terminology; and report unresolved warnings separately from passed checks.
 
 Read `references/style-guide.md` when choosing dimensions, colours, output rules, or reviewing a finished figure.
 

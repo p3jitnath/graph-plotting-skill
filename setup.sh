@@ -40,11 +40,7 @@ if [ ! -f "$HELVETICA_NEUE_FILE" ]; then
     echo "Place HelveticaNeue.ttc there, or set GRAPH_PLOTTING_FONT_DIR to"
     echo "the font root containing helvetica/HelveticaNeue.ttc."
     echo "Nimbus Sans remains bundled, but Helvetica Neue is the skill default."
-    exit 1
 fi
-
-echo "Found Helvetica Neue at $HELVETICA_NEUE_FILE"
-echo ""
 
 # Check if skill already exists
 if [ -d "$SKILL_DIR" ] || [ -L "$SKILL_DIR" ]; then

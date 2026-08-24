@@ -47,10 +47,12 @@ Produce restrained, legible scientific figures that remain readable at final man
 - Use visual emphasis only when it corresponds to a stated comparison or statistically supported result. Do not highlight a variable, model, or regime merely because it was explored; remove unexplained colour emphasis.
 - Place zero/reference lines behind data in neutral gray.
 - Default to no internal plot title for manuscript figures when the caption provides the context. Add a panel title only when it conveys necessary grouping information that the caption and panel label cannot provide.
+- Treat context as a caption responsibility by default. Retain panel titles only when they distinguish scientifically necessary groups that labels and the caption cannot express compactly; removing a title must not leave the model, regime, or quantity ambiguous.
 - Avoid dense omnibus figures. As a default, keep ordinary plots at least 1.35 in wide and 1.2 in high at final size; split the figure or move secondary panels to supplementary material when this cannot be achieved.
 - Judge typography relative to the physical panel size. Titles, legends, coordinate labels, and annotations must not occupy a disproportionate fraction of the plotting area.
 - Keep related annotations visually grouped with the element they describe. Sample-size labels below categorical axes must sit close to their category labels, without touching them or appearing detached near the figure boundary.
 - Inspect every text element against all immediate neighbours, not only the data: panel labels against titles, axis units, and extreme tick labels; annotations against lines and patch boundaries; place names against geographic markers; and timeline labels against event lines, arrows, and coloured intervals.
+- Place each panel label over the panel it identifies rather than at a fixed figure-relative coordinate. Moving it must preserve both its semantic association with that panel and visible clearance from ticks, units, parentheses, titles, and the plot frame. Verify a complete, correctly ordered label sequence across multi-panel figures.
 - Fail any text element that visually touches another glyph, line, marker, or patch boundary even when bounding boxes do not technically overlap. Reserve visible whitespace around it.
 - Place labels outside their associated marker or patch when an internal label reduces readability. Preserve an unambiguous spatial association through proximity and alignment.
 - Audit vertical and horizontal whitespace explicitly among the super-title, panel titles, axes, colour bars, legends, and footer annotations. Keep panel titles subordinate to the figure-level title and explanatory footer text subordinate to the plotted data.
@@ -58,11 +60,13 @@ Produce restrained, legible scientific figures that remain readable at final man
 - For directly comparable pies, bars, maps, or panels, preserve component order, start angle, colour meaning, axis limits, and orientation unless the scientific comparison requires a documented difference.
 - Give quantities with different populations or aggregations visibly different labels or panel titles. Do not present a rank mean, all-rank summary, cumulative time, and selected-rank profile as though they were equivalent quantities.
 - Match the manuscript's exact variable notation, capitalisation, units, run-independent titles, mathematical form, and difference direction in every visible label.
+- Choose legend rows, columns, and entry order for the available final-size width and requested grouping. Establish whether a legend applies to one panel or the whole figure and place it accordingly. The legend and caption must describe identical categories, and the compiled-page rendering must confirm that the legend obscures no points, whiskers, curves, coastlines, or interpretive annotations.
 
 ## Plot-specific checks
 
 - Bar charts: start quantitative axes at zero unless a clearly marked alternative is scientifically justified; use bars for discrete summaries, not continuous trends.
 - Lines: show observations or uncertainty when available; distinguish overlapping series without relying only on colour.
+- Interval plots: show every central estimate with a visible, correctly aligned marker unless the figure is intentionally interval-only and the caption says so. Check marker z-order, size, face and edge colours, and clipping in both vector and raster exports at final manuscript size; an interval line through the centre is not a visible point estimate.
 - Distributions: disclose normalisation and binning; prefer ECDFs, intervals, or density-aware summaries when histograms obscure comparison.
 - Maps: use a projection appropriate to the domain, label colour-bar units, preserve geographic aspect, and avoid rainbow colour maps. For comparable fields, reuse colour limits. For anomaly/difference fields, use `shared_symmetric_limits()` across all panels being compared; vary limits only when the caption or figure states why.
 - Geospatial panels: inspect unexpected white regions and determine whether they represent missing data, masks, land or ocean boundaries, or plotting artefacts. Fix artefacts, but retain and explain scientifically meaningful missingness.
@@ -73,6 +77,8 @@ Produce restrained, legible scientific figures that remain readable at final man
 ## Manuscript-integration audit
 
 Distinguish changes to the source figure from changes to its LaTeX inclusion. When a reviewer asks for a larger figure, first inspect `\includegraphics` scaling and available page width. Do not regenerate or distort the source artwork when full-width inclusion solves the problem.
+
+Use a source-versus-inclusion gate for any undersized figure. Increase LaTeX inclusion width when that alone restores legibility. Regenerate at the intended one- or two-column dimensions when scaling would reduce effective text below 7 pt, and inspect single-column figures at single-column dimensions.
 
 After compilation, verify:
 
@@ -85,11 +91,15 @@ Inspect the rendered manuscript page, not only the standalone PDF or PNG. Treat 
 
 Audit readability independently of numerical correctness. Check overlapping labels, faint colours, border opacity, map-number legibility, colour-bar tick spacing, and whether zero or neutral values remain recognisable at final size.
 
+For every panel, make the plotted model, route, target, metric, difference direction, and reference recoverable from its labels and caption. Define the reference level, direction of improvement, threshold rule, and meaning of extrema or positive regions for nonstandard curves. Difference plots must state which sign favours which model, and decision-value, reliability, and discrimination curves must define their reference lines and useful regions.
+
 Before delivery, run an encoding-consistency gate: marker shape, colour, line continuity, legend text, and manuscript caption must describe the same categories and phase relationships. Verify that a distinct phase such as inference remains visually disconnected when it is not part of the training trajectory.
 
 When any encoding changes, update and verify the plotting script, PDF and PNG exports, paper-local figure copy, legend, and manuscript caption as one coordinated change. Do not deliver a partial update or leave stale exports and prose.
 
 After regeneration, compare the plotting script, PNG, PDF, paper-local copy, and compiled manuscript page. Remove or clearly exclude cached page renders and stale artefacts containing superseded values. A provenance-bearing filename may retain a run identifier, but visible reader-facing text must use the agreed scientific name.
+
+After a layout-only revision, compare the new compiled page with the prior page at final size, checking text positions, panel boundaries, labels, legends, clipping, and preservation of scientific marks and values. For a data-changing revision, compare plotted values with the canonical result artefact separately from the page-layout inspection.
 
 When the user requests two figures, produce two independent PDF/PNG pairs unless the user explicitly requests one multi-panel canvas. After integrating replacement figures, remove obsolete combined outputs and their stale LaTeX references so the repository contains only the intended figure set.
 

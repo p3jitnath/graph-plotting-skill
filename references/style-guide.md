@@ -68,14 +68,12 @@ from mpl_style import (
     place_legend,
     publication_style,
     save_figure,
-    set_panel_title,
 )
 
 with publication_style():
     figure, axis = plt.subplots(figsize=(3.5, 3.0), constrained_layout=True)
     axis.plot(x, y, color=BASE_COLOUR, label="Model")
     axis.set(xlabel="Lead time (h)", ylabel="RMSE (mm)")
-    set_panel_title(axis, "Forecast error")
     finish_axis(axis)
     place_legend(axis, loc="best")
     findings = audit_figure(figure)
@@ -111,12 +109,10 @@ For outlier-dominated data, `shared_symmetric_limits(*fields, percentile=98)` is
 
 ## Titles and grouping
 
-- Reserve axis titles for necessary facet identifiers such as region, variable, method, or lead time.
-- Put the scientific claim and explanatory prose in the caption.
-- Prefer shared row/column headings over repeating long titles in every panel.
+- Do not add figure titles, super-titles, axis titles, or panel titles unless the user explicitly requests them.
+- Put the scientific claim and explanatory prose in the caption, and use axis labels, legends, panel labels, or shared row and column labels for necessary facet identity.
 - Keep abbreviations consistent across axes, legends, maps, and captions.
-- Create panel-specific titles with `set_panel_title()` rather than `figure.text()`. Set all titles before calling `add_panel_labels()`; the helper centres each bold panel letter vertically with its title.
-- Keep titles at 9 pt between 8-pt ordinary text and 10-pt bold panel labels. For multiline titles, use 1.1–1.2 line spacing and retain 2–4 pt of visible clearance above the axes frame.
+- If the user explicitly requests panel titles, create them with `set_panel_title()` rather than `figure.text()`. Set all titles before calling `add_panel_labels()`; use 9 pt, 1.1–1.2 line spacing, and 2–4 pt of visible clearance above the axes frame.
 
 ## Categorical annotations
 
@@ -140,9 +136,8 @@ Use `add_sample_sizes(axis, counts, positions)` after setting categorical ticks.
 - Check that labels, legends, annotations, panel letters, and tick labels do not collide or clip.
 - Confirm legends do not overlap plotted artists; map legends inside the field must have a semi-transparent white background.
 - Confirm longitude and latitude labels remain outside the mapped data and no major tick has negative padding.
-- Confirm every panel title uses its axis title and each panel letter is vertically centred with that title.
-- Confirm panel titles are slightly larger than ordinary figure text but smaller than, or visually subordinate to, panel labels.
-- For multiline titles, confirm the final line has visible clearance from the axes frame.
+- Confirm that no title is present unless the user explicitly requested it.
+- For requested panel titles, confirm that each uses its axis title, remains subordinate to the panel label, and has visible clearance from the axes frame.
 - Confirm sample-size annotations are clearly associated with their x-axis categories and are not separated by excessive whitespace.
 - Inspect text-to-panel proportions at the figure’s intended publication size, not only in an enlarged preview.
 - Check comparable panels use comparable scales, or visibly explain why they differ.

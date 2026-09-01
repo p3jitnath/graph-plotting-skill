@@ -1,10 +1,10 @@
 # Graph Plotting Skill
 
-A Codex skill for producing publication-ready scientific figures with consistent typography, panel layout, legends, annotations, and PDF/PNG export.
+An Agent Skill for Codex and Claude Code that produces publication-ready scientific figures with consistent typography, panel layout, legends, annotations, and PDF/PNG export.
 
 ## Requirements
 
-- Codex
+- Codex or Claude Code
 - Bash
 - Python with Matplotlib and NumPy for using the plotting helper
 - `HelveticaNeue.ttc` for the default Helvetica Neue profile
@@ -27,7 +27,13 @@ By default, `setup.sh`:
 2. Installs the skill under `${CODEX_HOME:-$HOME/.codex}/skills/graph-plotting`.
 3. Prompts before replacing an existing installation.
 
-Restart Codex if the installed skill does not appear in the current session.
+To install for Claude Code under `${CLAUDE_HOME:-$HOME/.claude}/skills/graph-plotting`, run:
+
+```bash
+./setup.sh --harness claude
+```
+
+Invoke the skill as `$graph-plotting` in Codex or `/graph-plotting` in Claude Code. Restart the selected harness if the installed skill does not appear in the current session.
 
 ## Custom font location
 
@@ -41,22 +47,24 @@ Here, `FONT_ROOT` is a directory chosen by the user that contains the `helvetica
 
 Set the same environment variable when running plotting scripts so the helper can locate Helvetica Neue.
 
-## Custom Codex location
+## Custom harness location
 
-Set `CODEX_HOME` before installation:
+Set `CODEX_HOME` for Codex or `CLAUDE_HOME` for Claude Code before installation:
 
 ```bash
 CODEX_HOME="$CUSTOM_CODEX_HOME" ./setup.sh
+CLAUDE_HOME="$CUSTOM_CLAUDE_HOME" ./setup.sh --harness claude
 ```
 
-Here, `CUSTOM_CODEX_HOME` is the desired Codex configuration directory.
+These variables identify the selected harness's configuration directory.
 
 ## Usage
 
-Open Codex in a project and ask it to use `$graph-plotting`, for example:
+Open the selected harness in a project and invoke `$graph-plotting` in Codex or `/graph-plotting` in Claude Code. For example:
 
 ```text
 Use $graph-plotting to revise this Matplotlib figure for publication.
+/graph-plotting revise this Matplotlib figure for publication.
 ```
 
 The plotting helper is installed at `scripts/mpl_style.py` inside the skill directory. It provides typography configuration, title and panel-label alignment, sample-size placement, legend handling, figure auditing, and PDF/PNG export.
@@ -68,6 +76,8 @@ Pull the latest version and rerun the installer:
 ```bash
 git pull --ff-only
 ./setup.sh
+# Or retain a Claude installation:
+./setup.sh --harness claude
 ```
 
 Confirm the overwrite prompt to replace the installed copy.

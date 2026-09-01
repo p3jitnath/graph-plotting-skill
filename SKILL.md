@@ -55,6 +55,8 @@ Produce restrained, legible scientific figures that remain readable at final man
 - Fail any text element that visually touches another glyph, line, marker, or patch boundary even when bounding boxes do not technically overlap. Reserve visible whitespace around it.
 - Place labels outside their associated marker or patch when an internal label reduces readability. Preserve an unambiguous spatial association through proximity and alignment.
 - Audit vertical and horizontal whitespace explicitly among the axes, colour bars, legends, footer annotations, and any explicitly requested titles. Keep requested titles and explanatory footer text subordinate to the plotted data.
+- Preserve visible separation among adjacent figure elements. Colour bars, legends, panels, axis labels, annotations, and shared labels must not appear attached or crowded; allocate explicit padding and inspect the gaps at final manuscript size.
+- When black text is placed over a dark fill, lighten that fill by two palette shade steps before export and then verify the rendered contrast. Apply the adjustment consistently to the same category across panels; do not rely on an outline or enlarged text to rescue an unreadable dark background.
 - Set a scientifically justified reporting threshold before labelling small pie slices or narrow graphical elements. Leave values below it to the legend or an accompanying table. Use leader lines only when their associations remain unambiguous at publication size.
 - For directly comparable pies, bars, maps, or panels, preserve component order, start angle, colour meaning, axis limits, and orientation unless the scientific comparison requires a documented difference.
 - Give quantities with different populations or aggregations visibly different labels. Do not present a rank mean, all-rank summary, cumulative time, and selected-rank profile as though they were equivalent quantities.
@@ -88,7 +90,7 @@ After compilation, verify:
 
 Inspect the rendered manuscript page, not only the standalone PDF or PNG. Treat unreadable effective typography, clipping, crowding, or misleading placement in the compiled paper as blocking failures even when the source figure passes its standalone audit.
 
-Audit readability independently of numerical correctness. Check overlapping labels, faint colours, border opacity, map-number legibility, colour-bar tick spacing, and whether zero or neutral values remain recognisable at final size.
+Audit readability independently of numerical correctness. Check overlapping labels, faint colours, border opacity, map-number legibility, colour-bar tick spacing and separation from its parent axes, and whether zero or neutral values remain recognisable at final size.
 
 For every panel, make the plotted model, route, target, metric, difference direction, and reference recoverable from its labels and caption. Define the reference level, direction of improvement, threshold rule, and meaning of extrema or positive regions for nonstandard curves. Difference plots must state which sign favours which model, and decision-value, reliability, and discrimination curves must define their reference lines and useful regions.
 

@@ -44,6 +44,8 @@ Keep ordinary panels at least 1.35 in wide and 1.2 in high at final size. This i
 
 Reuse meanings across a paper. The palette is restrained and generally distinguishable, but no finite palette guarantees accessibility in every context. Verify important distinctions in greyscale and with a colour-vision-deficiency preview, and add a non-colour encoding where needed.
 
+When black text overlays a dark categorical or continuous fill, move the fill two ordered shade steps towards white and verify the exported contrast. Use the same lightened shade for that semantic category throughout the figure. This rule does not authorise changing the data-to-colour mapping of a quantitative colour scale without updating its colour bar.
+
 ## Minimal pattern
 
 ```python
@@ -134,6 +136,8 @@ Use `add_sample_sizes(axis, counts, positions)` after setting categorical ticks.
 - Confirm the selected family is used for regular, bold, and italic text and no missing-glyph warnings occurred.
 - Run `audit_figure()` and resolve or explicitly justify every finding.
 - Check that labels, legends, annotations, panel letters, and tick labels do not collide or clip.
+- Check for visible breathing room among panels, colour bars, legends, labels, and annotations. In particular, confirm that each colour bar has a deliberate gap from its parent axes and neighbouring text.
+- Confirm that black text over a dark fill uses a fill lightened by two shade steps and remains readable in the final PDF and PNG.
 - Confirm legends do not overlap plotted artists; map legends inside the field must have a semi-transparent white background.
 - Confirm longitude and latitude labels remain outside the mapped data and no major tick has negative padding.
 - Confirm that no title is present unless the user explicitly requested it.

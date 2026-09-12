@@ -1,0 +1,34 @@
+# Manuscript integration
+
+Use only when a manuscript inclusion or its dependent captions and text are in scope. A standalone figure does not require a manuscript, compilation, or a paper-wide audit.
+
+Distinguish changes to the source figure from changes to its LaTeX inclusion. When a reviewer asks for a larger figure, first inspect `\includegraphics` scaling and available page width. Do not regenerate or distort the source artwork when full-width inclusion solves the problem.
+
+Use a source-versus-inclusion gate for any undersized figure. Increase LaTeX inclusion width when that alone restores legibility. Regenerate at the intended one- or two-column dimensions when scaling would reduce effective text below 7 pt, and inspect single-column figures at single-column dimensions.
+
+After compilation, verify:
+
+- The actual page and final printed dimensions.
+- The effective font size after LaTeX scaling.
+- Whether the caption and following interpretive paragraph remain with the figure.
+- Whether enlargement creates a float-only page or disrupts reading order.
+
+Inspect the rendered manuscript page, not only the standalone PDF or PNG. Treat unreadable effective typography, clipping, crowding, or misleading placement in the compiled paper as blocking failures even when the source figure passes its standalone audit.
+
+Audit readability independently of numerical correctness. Check overlapping labels, faint colours, border opacity, map-number legibility, colour-bar tick spacing and separation from its parent axes, and whether zero or neutral values remain recognisable at final size.
+
+For every panel, make the plotted model, route, target, metric, difference direction, and reference recoverable from its labels and caption. Define the reference level, direction of improvement, threshold rule, and meaning of extrema or positive regions for nonstandard curves. Difference plots must state which sign favours which model, and decision-value, reliability, and discrimination curves must define their reference lines and useful regions.
+
+Before delivery, run an encoding-consistency gate: marker shape, colour, line continuity, legend text, and manuscript caption must describe the same categories and phase relationships. Verify that a distinct phase such as inference remains visually disconnected when it is not part of the training trajectory.
+
+When any encoding changes, update and verify the plotting script, PDF and PNG exports, paper-local figure copy, legend, and manuscript caption as one coordinated change. Do not deliver a partial update or leave stale exports and prose.
+
+After regeneration, compare the plotting script, PNG, PDF, paper-local copy, and compiled manuscript page. Regenerate or clearly exclude stale generated artefacts in scope. Preserve source data and unrelated files. A provenance-bearing filename may retain a run identifier, but visible reader-facing text must use the agreed scientific name.
+
+After a layout-only revision, compare the new compiled page with the prior page at final size, checking text positions, panel boundaries, labels, legends, clipping, and preservation of scientific marks and values. For a data-changing revision, compare plotted values with the canonical result artefact separately from the page-layout inspection.
+
+When the user requests two figures, produce two independent PDF/PNG pairs unless the user explicitly requests one multi-panel canvas. After integrating replacement figures, remove obsolete combined outputs and their stale LaTeX references so the repository contains only the intended figure set.
+
+When a figure combines domain context with forecast or verification panels, split it into separate figures if the map reduces the size or comparability of the scientific panels.
+
+For a data-changing revision, identify the canonical experiment and source data, regenerate requested outputs, and reconcile dependent captions and text. For inclusion or layout changes, compile and inspect affected pages at final size. Check for stale values where the changed result is used. Report unresolved warnings separately from passed checks, and repeat successful checks only after a new edit or concrete concern.

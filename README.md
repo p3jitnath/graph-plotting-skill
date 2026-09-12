@@ -2,6 +2,8 @@
 
 An Agent Skill for Codex and Claude Code that produces publication-ready scientific figures with consistent typography, panel layout, legends, annotations, and PDF/PNG export.
 
+Instruction routing follows OpenAI’s [Astra skills guidance](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra). Detailed style and manuscript checks load only when relevant.
+
 ## Requirements
 
 - Codex or Claude Code
@@ -9,7 +11,7 @@ An Agent Skill for Codex and Claude Code that produces publication-ready scienti
 - Python with Matplotlib and NumPy for using the plotting helper
 - `HelveticaNeue.ttc` for the default Helvetica Neue profile
 
-Nimbus Sans is bundled and can be selected when Helvetica Neue is unavailable or unsuitable for redistribution.
+Nimbus Sans is bundled and is selected explicitly when the default Helvetica Neue is unavailable or unsuitable for redistribution. An explicitly required font is never substituted silently.
 
 ## Install
 

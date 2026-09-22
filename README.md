@@ -71,6 +71,10 @@ Use $graph-plotting to revise this Matplotlib figure for publication.
 
 The plotting helper is installed at `scripts/mpl_style.py` inside the skill directory. It provides typography configuration, title and panel-label alignment, sample-size placement, legend handling, figure auditing, and PDF/PNG export.
 
+[Plot patterns](references/plot-patterns.md) adds comparison, ablation, shared-legend, uncertainty, composition, heatmap, and timeline guidance inspired by Chen Liu's [figures4papers](https://github.com/ChenLiu-1996/figures4papers). The patterns preserve the skill's existing Nature-style typography, semantic palette, physical dimensions, and export defaults.
+
+[Mathematical schematics](references/mathematical-schematics.md) covers traceable transformations, invariant checks, structural labels, and editable diagram sources. Styling and preview guidance preserves scientific content and keeps alternatives separate from accepted manuscript assets.
+
 ## Update
 
 Pull the latest version and rerun the installer:

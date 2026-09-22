@@ -4,6 +4,10 @@ Use only when a manuscript inclusion or its dependent captions and text are in s
 
 Distinguish changes to the source figure from changes to its LaTeX inclusion. When a reviewer asks for a larger figure, first inspect `\includegraphics` scaling and available page width. Do not regenerate or distort the source artwork when full-width inclusion solves the problem.
 
+Identify the active source, asset, caption, and build route from current content. Preserve explicit caption gaps, protected wording, and aspect ratios. Unused source canvas, panel allocation, inclusion size, and surrounding document whitespace need different repairs; fix the source of the gap rather than adding content or negative spacing indiscriminately.
+
+When an authorised figure-to-table conversion better communicates exact estimates, preserve values and interval meanings, update object references and the caption, and replace prose about marks that no longer exist. For a publication-name change, update visible labels while preserving the mapping to historical result identifiers. Review markup and its colours are separate from scientific figure encodings.
+
 Use a source-versus-inclusion gate for any undersized figure. Increase LaTeX inclusion width when that alone restores legibility. Regenerate at the intended one- or two-column dimensions when scaling would reduce effective text below 7 pt, and inspect single-column figures at single-column dimensions.
 
 After compilation, verify:
@@ -21,13 +25,13 @@ For every panel, make the plotted model, route, target, metric, difference direc
 
 Before delivery, run an encoding-consistency gate: marker shape, colour, line continuity, legend text, and manuscript caption must describe the same categories and phase relationships. Verify that a distinct phase such as inference remains visually disconnected when it is not part of the training trajectory.
 
-When any encoding changes, update and verify the plotting script, PDF and PNG exports, paper-local figure copy, legend, and manuscript caption as one coordinated change. Do not deliver a partial update or leave stale exports and prose.
+When an accepted asset's encoding changes, update and verify the plotting script, requested exports, paper-local figure copy, legend, and manuscript caption as one coordinated change. Keep requested previews and alternatives separate until selected; generating a variant does not replace the active manuscript asset automatically.
 
 After regeneration, compare the plotting script, PNG, PDF, paper-local copy, and compiled manuscript page. Regenerate or clearly exclude stale generated artefacts in scope. Preserve source data and unrelated files. A provenance-bearing filename may retain a run identifier, but visible reader-facing text must use the agreed scientific name.
 
 After a layout-only revision, compare the new compiled page with the prior page at final size, checking text positions, panel boundaries, labels, legends, clipping, and preservation of scientific marks and values. For a data-changing revision, compare plotted values with the canonical result artefact separately from the page-layout inspection.
 
-When the user requests two figures, produce two independent PDF/PNG pairs unless the user explicitly requests one multi-panel canvas. After integrating replacement figures, remove obsolete combined outputs and their stale LaTeX references so the repository contains only the intended figure set.
+When the user requests two figures, produce two independent PDF/PNG pairs unless the user explicitly requests one multi-panel canvas. After integrating replacements, remove stale active references and clearly separate obsolete generated exports; preserve requested alternatives and source history.
 
 When a figure combines domain context with forecast or verification panels, split it into separate figures if the map reduces the size or comparability of the scientific panels.
 

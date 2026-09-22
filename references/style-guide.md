@@ -2,6 +2,16 @@
 
 Read the sections relevant to the figure, font, or encoding being changed. Explicit user, project, and venue requirements take precedence over house style defaults. Preserve unrelated design choices during a local correction. Paths in backticks are relative to the skill directory unless a project path is stated.
 
+For comparison layouts and chart-specific recipes, see [plot patterns](plot-patterns.md). This guide and `scripts/mpl_style.py` remain the source of the Nature-style typography, dimensions, palette, and export defaults when adapting an external example.
+
+## Visual purpose and permitted changes
+
+Choose the form from the scientific question: construction, estimates, distribution, case, or system context. A table can communicate a few exact values more clearly than a plot; use a plot when shape, ordering, density, or interval geometry adds meaning. Select a panel for the question it answers, not because an image already exists. During a styling task, preserve the data, equations, topology, labels, scales, order, and category meanings.
+
+For ambitious design requests, improve explanation, hierarchy, spacing, and final-size legibility within the current visual genre. An extra panel or icon needs an explanatory job. If the original is preferred, refine it. For requested alternatives, retain the original for comparison, name variants by what changes, and keep previews separate from accepted assets.
+
+Diagnose unused source canvas, uneven panel allocation, small inclusion size, and surrounding document spacing separately. Preserve aspect ratio during resizing and inspect effective text and line weights at the target dimensions. Keep current caption spacing and protected wording. For mathematical constructions and meaningful stage frames, use [mathematical schematics](mathematical-schematics.md).
+
 ## Canonical specification
 
 | Element | Value |
@@ -46,7 +56,7 @@ Keep ordinary panels at least 1.35 in wide and 1.2 in high at final size. This i
 
 Reuse meanings across a paper. The palette is restrained and generally distinguishable, but no finite palette guarantees accessibility in every context. Verify important distinctions in greyscale and with a colour-vision-deficiency preview, and add a non-colour encoding where needed.
 
-When black text overlays a dark categorical or continuous fill, move the fill two ordered shade steps towards white and verify the exported contrast. Use the same lightened shade for that semantic category throughout the figure. This rule does not authorise changing the data-to-colour mapping of a quantitative colour scale without updating its colour bar.
+For black text on a dark categorical fill, lighten the fill consistently for that category or move the text outside it, then check exported contrast. For quantitative colour scales, preserve the data-to-colour mapping and choose readable text or external labels. Do not lighten individual cells independently. Hue, thickness, and opacity must not imply probability, importance, or significance unless they encode those quantities.
 
 ## Minimal pattern
 
@@ -140,7 +150,7 @@ Set any requested panel titles before `add_panel_labels()` so label alignment us
 - Infer categorical meaning from the project context, data, manuscript, and requested design rather than assigning a fixed palette or marker scheme. Encodings such as connected red circles for training and an isolated blue triangle for inference are project-specific examples, not defaults.
 - Use visual emphasis only when it corresponds to a stated comparison or statistically supported result. Do not highlight a variable, model, or regime merely because it was explored; remove unexplained colour emphasis.
 - Place zero/reference lines behind data in neutral gray.
-- Do not add or retain a figure title, super-title, axis title, or panel title unless the user explicitly requests titles. Put necessary context in axis labels, legends, panel labels, and the caption. If removing an existing title would make the model, regime, or quantity ambiguous, repair those elements rather than retaining the title without permission.
+- Do not add decorative figure titles, super-titles, or panel titles unless requested. Preserve necessary structural stage labels and identifiers. A title-removal preference does not authorise deleting protected wording or making a diagram's objects ambiguous; use axis labels, legends, facet identity, and captions for ordinary plot context.
 - Avoid dense omnibus figures. As a default, keep ordinary plots at least 1.35 in wide and 1.2 in high at final size; split the figure or move secondary panels to supplementary material when this cannot be achieved.
 - Judge typography relative to the physical panel size. Legends, coordinate labels, annotations, and any explicitly requested titles must not occupy a disproportionate fraction of the plotting area.
 - Keep related annotations visually grouped with the element they describe. Sample-size labels below categorical axes must sit close to their category labels, without touching them or appearing detached near the figure boundary.
@@ -150,7 +160,7 @@ Set any requested panel titles before `add_panel_labels()` so label alignment us
 - Place labels outside their associated marker or patch when an internal label reduces readability. Preserve an unambiguous spatial association through proximity and alignment.
 - Audit vertical and horizontal whitespace explicitly among the axes, colour bars, legends, footer annotations, and any explicitly requested titles. Keep requested titles and explanatory footer text subordinate to the plotted data.
 - Preserve visible separation among adjacent figure elements. Colour bars, legends, panels, axis labels, annotations, and shared labels must not appear attached or crowded; allocate explicit padding and inspect the gaps at final manuscript size.
-- When black text is placed over a dark fill, lighten that fill by two palette shade steps before export and then verify the rendered contrast. Apply the adjustment consistently to the same category across panels; do not rely on an outline or enlarged text to rescue an unreadable dark background.
+- Check text against its fill using the semantic-palette guidance above; enlarged text or outlines alone do not rescue poor contrast.
 - Set a scientifically justified reporting threshold before labelling small pie slices or narrow graphical elements. Leave values below it to the legend or an accompanying table. Use leader lines only when their associations remain unambiguous at publication size.
 - For directly comparable pies, bars, maps, or panels, preserve component order, start angle, colour meaning, axis limits, and orientation unless the scientific comparison requires a documented difference.
 - Give quantities with different populations or aggregations visibly different labels. Do not present a rank mean, all-rank summary, cumulative time, and selected-rank profile as though they were equivalent quantities.
@@ -162,12 +172,13 @@ Set any requested panel titles before `add_panel_labels()` so label alignment us
 - Bar charts: start quantitative axes at zero unless a clearly marked alternative is scientifically justified; use bars for discrete summaries, not continuous trends.
 - Lines: show observations or uncertainty when available; distinguish overlapping series without relying only on colour.
 - Interval plots: show every central estimate with a visible, correctly aligned marker unless the figure is intentionally interval-only and the caption says so. Check marker z-order, size, face and edge colours, and clipping in both vector and raster exports at final manuscript size; an interval line through the centre is not a visible point estimate.
-- Distributions: disclose normalisation and binning; prefer ECDFs, intervals, or density-aware summaries when histograms obscure comparison.
+- Distributions: identify the random quantity and distinguish finite samples, weighted empirical distributions, histograms, and continuous density estimates. Preserve weights and disclose normalisation, binning, and smoothing; see [distribution and proxy patterns](plot-patterns.md#distributions-and-diagnostic-proxies).
 - Maps: use a projection appropriate to the domain, label colour-bar units, preserve geographic aspect, and avoid rainbow colour maps. For comparable fields, reuse colour limits. For anomaly/difference fields, use `shared_symmetric_limits()` across all panels being compared; vary limits only when the caption or figure states why.
 - Geospatial panels: inspect unexpected white regions and determine whether they represent missing data, masks, land or ocean boundaries, or plotting artefacts. Fix artefacts, but retain and explain scientifically meaningful missingness.
 - Coordinate labels: keep longitude, latitude, and ordinary tick labels outside the plotted data. Do not use negative tick padding to pull labels into a map; instead increase margins or adjust the gridliner label positions.
 - Log axes: label them clearly and handle zero/nonpositive values explicitly.
 - Categorical summaries: place sample sizes directly beneath their corresponding category labels. Use `add_sample_sizes()` or, with the x-axis transform, start around `y=-0.10` to `y=-0.14`; adjust visually and reserve only the necessary bottom margin.
+- Summary labels: distinguish pooled estimates, group summaries, repeated-fit variation, and confidence or prediction intervals. Label a displayed example separately from the scored population. Identify tested settings versus inferred crossings and independently evaluated outputs versus restrictions of a common output.
 
 ## Categorical annotations
 

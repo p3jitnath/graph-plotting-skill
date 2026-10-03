@@ -72,7 +72,7 @@ with publication_style():
 
 ## Multiple panels and shared legends
 
-Group panels around a single comparison and identify each metric through its axis label. Keep method styles and order consistent, with shared axis limits only for comparable quantities. Use `GridSpec` width or height ratios when a long label, colour bar, or shared legend needs deliberate space. Budget that space at the printed width; a large canvas later reduced into a column does not solve density.
+Group panels around a single comparison and identify each metric through its axis label. Keep method styles and order consistent, with shared axis limits only for comparable quantities. Preserve scenario identities across panels through stable names, colours, markers, and ordering; sorting, omitted scenarios, or a change of representation must not silently reassign their encodings. Use `GridSpec` width or height ratios when a long label, colour bar, or shared legend needs deliberate space. Budget that space at the printed width; a large canvas later reduced into a column does not solve density.
 
 For a shared legend, gather handles from **all** relevant panels and deduplicate by semantic label after confirming that repeated labels have identical encodings. A series present only in the second panel must still appear. A compact figure legend above or below the axes usually leaves more room for data than a full legend panel. Reserve a column or row for a large legend when necessary, call `set_axis_off()` on that auxiliary axis, and apply panel labels only to data axes. Use one layout mechanism; avoid combining constrained layout with later `tight_layout()` or manual subplot adjustments.
 

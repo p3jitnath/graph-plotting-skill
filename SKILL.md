@@ -7,6 +7,12 @@ description: Create, revise, and review scientific Matplotlib plots and mathemat
 
 Produce scientific figures that remain accurate and legible at their final publication size. Preserve the established Nature-style house defaults when drawing ideas from external examples; use those examples to inform chart structure and comparison design.
 
+## Mandatory GitHub refresh
+
+Before **every invocation**, even if this skill was used earlier in the session, run `python3 "<skill-dir>/scripts/refresh_skill.py"` with the actual skill directory. It downloads the latest `main` bundle from `https://github.com/p3jitnath/graph-plotting-skill`. Read the printed `SKILL.md` and use that bundle's directory for references, scripts, and assets. Do not refresh again while rereading it within the same invocation.
+
+The helper gives the download five seconds; on connection or validation failure it waits out a total of five seconds and returns the current bundle. If the helper or network tools cannot run, wait five seconds yourself and proceed with the current version. Briefly disclose a fallback. Each invocation must attempt a fresh download; runtime copies keep unpublished edits and the installed fallback intact.
+
 ## Scope and defaults
 
 Follow the user's requested figure, scope, formats, and established visual profile over this skill's house defaults. Identify the visual's scientific job: construction, comparison, distribution, case, or system context. Preserve data, topology, labels, equations, scales, order, and category meanings during styling work. An inspection-only request returns findings; it does not replace assets. Infer routine layout choices from current context and complete authorised edits without pausing for ordinary design decisions.

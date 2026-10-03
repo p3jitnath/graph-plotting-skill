@@ -8,6 +8,8 @@ Identify the active source, asset, caption, and build route from current content
 
 When an authorised figure-to-table conversion better communicates exact estimates, preserve values and interval meanings, update object references and the caption, and replace prose about marks that no longer exist. For a publication-name change, update visible labels while preserving the mapping to historical result identifiers. Review markup and its colours are separate from scientific figure encodings.
 
+When accepting revisions, inspect editable figure sources and embedded figure text as well as manuscript prose for the designated review-colour layer. Remove or accept that layer inside the assets and regenerate affected exports, preserving scientific colours, category meanings, equations, emphasis, and accepted wording. Do not strip all uses of a colour simply because it also marks revisions.
+
 Use a source-versus-inclusion gate for any undersized figure. Increase LaTeX inclusion width when that alone restores legibility. Regenerate at the intended one- or two-column dimensions when scaling would reduce effective text below 7 pt, and inspect single-column figures at single-column dimensions.
 
 After compilation, verify:

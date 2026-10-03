@@ -10,6 +10,8 @@ Identify the fixed content before styling: nodes, edges, order, addresses, symbo
 
 ## Make correspondence traceable
 
+Show every transformation essential to the explanation, including an intermediate carrier map or representation when it determines how input becomes output. Give each operation an identifiable input, mapping, and result; an unexplained arrow must not conceal the central construction. Place equations beside their corresponding stages, with a clear link between terms and graphical objects. Align mathematical baselines within a row and give fractions, subscripts, and superscripts enough clearance.
+
 Use the same identifier or visual encoding for the same object at every stage. Align corresponding positions or provide a clear mapping when coordinates change. Connect graphical marks to the notation in the accompanying expression. A change in colour or thickness must have a defined meaning if it appears to encode weight, probability, or importance.
 
 Reserve arrows for meaningful relations. Distinguish data flow, time, conditional dependence, and inference if more than one appears. A stage frame or background can group related operations; ordinary statistical spine removal does not require removing a useful conceptual frame. Preserve necessary structural stage labels even when decorative titles are omitted.

@@ -70,6 +70,10 @@ with publication_style():
     plt.close(figure)
 ```
 
+## Runtime comparisons
+
+For an implementation benchmark, include the available unchanged vanilla controls and tuned implementations at the matched workloads. Identify the tuning condition in the legend and preserve every required comparator during layout edits. Show repeated timing variation for each implementation and workload, naming the summary, interval definition and repetition count. A min–max range is not a confidence interval. Keep setup, compilation and warm-up scope consistent with the recorded protocol. If a control or repeated timing record is missing, report the gap rather than inventing a bar or inferring variation from another implementation. Follow the [bar-value clearance checks](style-guide.md#plot-specific-checks).
+
 ## Multiple panels and shared legends
 
 Group panels around a single comparison and identify each metric through its axis label. Keep method styles and order consistent, with shared axis limits only for comparable quantities. Preserve scenario identities across panels through stable names, colours, markers, and ordering; sorting, omitted scenarios, or a change of representation must not silently reassign their encodings. Use `GridSpec` width or height ratios when a long label, colour bar, or shared legend needs deliberate space. Budget that space at the printed width; a large canvas later reduced into a column does not solve density.

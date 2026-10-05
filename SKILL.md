@@ -13,6 +13,10 @@ Before **every invocation**, even if this skill was used earlier in the session,
 
 The helper gives the download five seconds; on connection or validation failure it waits out a total of five seconds and returns the current bundle. If the helper or network tools cannot run, wait five seconds yourself and proceed with the current version. Briefly disclose a fallback. Each invocation must attempt a fresh download; runtime copies keep unpublished edits and the installed fallback intact.
 
+## Prose punctuation
+
+Do not use semicolons or colons in prose you draft or revise, including captions, labels, legends, annotations, and explanatory replies. Titles are exempt and may use either punctuation mark. Recast with full stops, commas, conjunctions, or parentheses while preserving meaning and avoiding comma splices. Preserve required punctuation in code, configuration, URLs, file paths, identifiers, mathematical notation, exact quotations, official names, and bibliography metadata. Prose strings rendered by code still follow this rule. Inspect changed reader-facing text before delivery. Do not rewrite protected text or unrelated content merely to remove punctuation.
+
 ## Scope and defaults
 
 Follow the user's requested figure, scope, formats, and established visual profile over this skill's house defaults. Identify the visual's scientific job: construction, comparison, distribution, case, or system context. Preserve data, topology, labels, equations, scales, order, and category meanings during styling work. An inspection-only request returns findings; it does not replace assets. Infer routine layout choices from current context and complete authorised edits without pausing for ordinary design decisions.

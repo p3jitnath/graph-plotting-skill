@@ -43,7 +43,7 @@ Verify numerical or mathematical fidelity independently from visual clarity. Ins
 
 ## Manuscript work
 
-Read [manuscript-integration.md](references/manuscript-integration.md) when changing LaTeX inclusion, figure placement, captions, or manuscript-linked results. Check source dimensions against inclusion scaling before regenerating artwork. Update requested exports and dependent captions or text together, then inspect the affected compiled pages. Standalone plotting does not require a manuscript project.
+For caption or accompanying prose edits, apply [caption narrative](references/manuscript-integration.md#caption-narrative) at the requested audience level. Read the other relevant parts of [manuscript-integration.md](references/manuscript-integration.md) when changing LaTeX inclusion, figure placement or manuscript-linked results. Check source dimensions against inclusion scaling before regenerating artwork. Update requested exports and dependent captions or text together, then inspect the affected compiled pages. Standalone plotting does not require a manuscript project.
 
 ## Completion
 

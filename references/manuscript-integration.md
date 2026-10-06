@@ -38,3 +38,11 @@ When the user requests two figures, produce two independent PDF/PNG pairs unless
 When a figure combines domain context with forecast or verification panels, split it into separate figures if the map reduces the size or comparability of the scientific panels.
 
 For a data-changing revision, identify the canonical experiment and source data, regenerate requested outputs, and reconcile dependent captions and text. For inclusion or layout changes, compile and inspect affected pages at final size. Check for stale values where the changed result is used. Report unresolved warnings separately from passed checks, and repeat successful checks only after a new edit or concrete concern.
+
+## Caption narrative
+
+Use polished academic English and the manuscript's requested writing convention for captions and accompanying prose. Define every acronym, specialised term, metric and architectural component at first use in a self-contained caption, including metric units, reference and direction of improvement where relevant. Keep terminology consistent with the manuscript and the figure.
+
+Connect the plotted observation to the scientific question, supported interpretation and consequence. When accompanying narrative is in scope, carry observation → problem → response → result → consequence through that argument without forcing all five moves into a short caption. Use an explicit bridge when a demonstrated result or trade-off motivates the next step. Each sentence should explain the scientific role of the marks, comparison or finding.
+
+State supported results directly, precisely and confidently. Preserve every value, uncertainty interval, comparison and scientific distinction. Keep essential interpretation conditions with the figure and concentrate general limitations neutrally in the manuscript's Discussion or Scope section. Combine the result, interpretation and relevant trade-off when this produces one clear thought. Fluency must not imply unmeasured superiority or alter data, units, colour scales or encodings.

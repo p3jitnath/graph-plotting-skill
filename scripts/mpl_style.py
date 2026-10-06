@@ -48,7 +48,7 @@ def register_fonts(font_family="Helvetica Neue", project_root=None):
     if not FONT_FILES:
         raise FileNotFoundError(f"No Nimbus Sans fonts found in {ASSET_DIRECTORY}")
     for font_file in FONT_FILES:
-        font_manager.fontManager.addfont(font_file)
+        font_manager.fontManager.addfont(str(font_file))
     if font_family in ("Helvetica", "Helvetica Neue"):
         searched_directories = _helvetica_directories(project_root)
         available_files = []
@@ -66,7 +66,7 @@ def register_fonts(font_family="Helvetica Neue", project_root=None):
                 .format(", ".join(str(path) for path in searched_directories))
             )
         for font_file in available_files:
-            font_manager.fontManager.addfont(font_file)
+            font_manager.fontManager.addfont(str(font_file))
 
 
 def rc_params(overrides=None, font_family="Helvetica Neue"):

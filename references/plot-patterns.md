@@ -72,7 +72,7 @@ with publication_style():
 
 ## Runtime comparisons
 
-For an implementation benchmark, include the available unchanged vanilla controls and tuned implementations at the matched workloads. Identify the tuning condition in the legend and preserve every required comparator during layout edits. Show repeated timing variation for each implementation and workload, naming the summary, interval definition and repetition count. A min–max range is not a confidence interval. Keep setup, compilation and warm-up scope consistent with the recorded protocol. If a control or repeated timing record is missing, report the gap rather than inventing a bar or inferring variation from another implementation. Follow the [bar-value clearance checks](style-guide.md#plot-specific-checks).
+For an implementation benchmark, include the available unchanged vanilla controls and tuned implementations at the matched workloads. Identify the tuning condition in the legend and preserve every required reference case during layout edits. Show repeated timing variation for each implementation and workload, naming the summary, interval definition and repetition count. A min–max range is not a confidence interval. Keep setup, compilation and warm-up scope consistent with the recorded protocol. If a control or repeated timing record is missing, report the gap rather than inventing a bar or inferring variation from another implementation. Follow the [bar-value clearance checks](style-guide.md#plot-specific-checks).
 
 ## Multiple panels and shared legends
 
@@ -104,10 +104,10 @@ lead_time = np.array([6, 12, 24, 48])
 styles = [("Baseline", BASE_COLOUR, "o", "--"),
           ("Corrected", CORRECTED_COLOUR, "s", "-")]
 panels = [
-    ("RMSE (K)",
+    ("RMSE [K]",
      np.array([[1.1, 1.3, 1.7, 2.2], [0.9, 1.1, 1.4, 1.9]]),
      np.array([[0.08, 0.10, 0.12, 0.15], [0.06, 0.09, 0.11, 0.13]])),
-    ("MAE (K)",
+    ("MAE [K]",
      np.array([[0.8, 1.0, 1.3, 1.7], [0.7, 0.8, 1.1, 1.4]]),
      np.array([[0.05, 0.07, 0.08, 0.12], [0.04, 0.06, 0.07, 0.10]])),
 ]
@@ -128,7 +128,7 @@ with publication_style():
                 lead_time, mean[j], label=label, color=colour,
                 marker=marker, markersize=3, linestyle=line_style, zorder=2,
             )
-        axis.set(xlabel="Lead time (h)", ylabel=ylabel)
+        axis.set(xlabel="Lead time [h]", ylabel=ylabel)
         axis.set_xticks(lead_time)
         finish_axis(axis)
     legend_entries = {}
@@ -164,7 +164,7 @@ Use `imshow(..., interpolation="nearest")` or a suitable `pcolormesh` so interpo
 
 Identify the random quantity and representation: finite sample, weighted empirical distribution, histogram, or continuous density estimate. Retain the weights, normalisation, bin widths, and smoothing convention needed to interpret it. Do not add smooth tails or uncertainty bands solely to imitate another paper. A scalar-summary density does not represent an entire multivariate law, and a density contour is not automatically a confidence region.
 
-For spread against a difficulty or similarity proxy, define the proxy, units, reference population, grouping, and weighting. Keep means and medians distinct and inspect influential observations when a sharp group-mean change drives the interpretation. Association between spread and a proxy does not establish calibration or the correct uncertainty magnitude. Retain relevant comparator patterns and use consistent normalisation before comparing absolute values.
+For spread against a difficulty or similarity proxy, define the proxy, units, reference population, grouping, and weighting. Keep means and medians distinct and inspect influential observations when a sharp group-mean change drives the interpretation. Association between spread and a proxy does not establish calibration or the correct uncertainty magnitude. Retain relevant patterns in the reference case and use consistent normalisation before comparing absolute values.
 
 If a valid transform hides a small but important component, consider a direct comparison, aligned panels, or a labelled zoom within the requested scope. Keep the data fixed and disclose the transformation or restricted range. Distinguish pooled crossings, subgroup crossings, and settings where every subgroup has the same sign; markers identify tested settings, not an unmeasured exact threshold.
 

@@ -27,6 +27,8 @@ Resolve audience, dimensions, caption spacing, notation, and permitted redesign 
 
 Use British English unless the user, project, or venue specifies otherwise. Preserve literal identifiers and official names. Do not add decorative figure or panel titles unless requested; retain structural stage labels, axis labels, legends, and facet identity needed to follow the science.
 
+Write units in square brackets in axis, colour-bar and other compact metric labels, such as `RMSE [K]` and `Lead time [h]`. Preserve the actual units, numerical scaling and dimensionless quantities, following the [label conventions](references/style-guide.md#typography).
+
 The default family is Helvetica Neue. If it is unavailable and the user has not required an exact font, select bundled Nimbus Sans explicitly and disclose the choice. Keep `publication_style(font_family=...)` and `audit_figure(expected_font=...)` consistent. An unavailable explicitly required font is a dependency to report, not a reason to abandon unrelated work or silently substitute another family.
 
 ## Figure work

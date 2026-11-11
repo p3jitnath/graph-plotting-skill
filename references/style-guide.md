@@ -87,7 +87,7 @@ from mpl_style import (
 with publication_style():
     figure, axis = plt.subplots(figsize=(3.5, 3.0), constrained_layout=True)
     axis.plot(x, y, color=BASE_COLOUR, label="Model")
-    axis.set(xlabel="Lead time (h)", ylabel="RMSE (mm)")
+    axis.set(xlabel="Lead time [h]", ylabel="RMSE [mm]")
     finish_axis(axis)
     place_legend(axis, loc="best")
     findings = audit_figure(figure)
@@ -116,7 +116,7 @@ for axis, difference in zip(axes, difference_fields):
         vmin=vmin,
         vmax=vmax,
     )
-colorbar = figure.colorbar(image, ax=axes, label="Forecast error (m s$^{-1}$)")
+colorbar = figure.colorbar(image, ax=axes, label="Forecast error [m s$^{-1}$]")
 ```
 
 For outlier-dominated data, `shared_symmetric_limits(*fields, percentile=98)` is acceptable only when the clipped range is disclosed. Use separate limits only when direct magnitude comparison is not intended and make the differing scales conspicuous.
@@ -134,7 +134,7 @@ For outlier-dominated data, `shared_symmetric_limits(*fields, percentile=98)` is
 - Treat 7 pt as the absolute minimum for every visible text element, including map ticks, place labels, annotations, legends, and direct labels. Never lower `audit_figure(..., min_font_size=...)` below 7 merely to fit a page.
 - Audit effective typography at the final LaTeX inclusion size. A figure generated at 8 pt and subsequently scaled to 60% has an effective size of 4.8 pt and fails. Treat any visible text below 7 pt after scaling as a blocking failure. Regenerate at the intended printed dimensions or revise the layout before delivery; do not waive or merely report the failure.
 - If the user explicitly requests multiline panel titles, use compact line spacing, typically 1.1–1.2, and preserve a visible 2–4 pt gap between the final title line and the axes frame. Prefer `set_panel_title()`, whose defaults are 9 pt, 1.15 line spacing, and 3 pt padding.
-- Use sentence case and concise labels. Put units in parentheses, for example `Mean daily rainfall (mm)`.
+- Use sentence case and concise labels. Put units in square brackets after the metric or quantity name in axis labels, colour-bar labels, legends and compact annotations, for example `RMSE [K]`, `Mean daily rainfall [mm]` and `Lead time [h]`. Preserve mathematical unit notation, numerical scaling and the measured quantity. Keep dimensionless scores without a unit suffix, and use `[%]` only when the displayed values are on a percentage scale.
 - Keep math typography compatible with sans-serif text through the bundled style configuration.
 - Preserve editable/vector text in PDF. Do not rasterize the whole figure to solve a font issue.
 
@@ -157,7 +157,7 @@ Set any requested panel titles before `add_panel_labels()` so label alignment us
 - Judge typography relative to the physical panel size. Legends, coordinate labels, annotations, and any explicitly requested titles must not occupy a disproportionate fraction of the plotting area.
 - Keep related annotations visually grouped with the element they describe. Sample-size labels below categorical axes must sit close to their category labels, without touching them or appearing detached near the figure boundary.
 - Inspect every text element against all immediate neighbours, not only the data: panel labels against titles, axis units, and extreme tick labels; annotations against lines and patch boundaries; place names against geographic markers; and timeline labels against event lines, arrows, and coloured intervals.
-- Place each panel label over the panel it identifies rather than at a fixed figure-relative coordinate. Moving it must preserve both its semantic association with that panel and visible clearance from ticks, units, parentheses, titles, and the plot frame. Verify a complete, correctly ordered label sequence across multi-panel figures.
+- Place each panel label over the panel it identifies rather than at a fixed figure-relative coordinate. Moving it must preserve both its semantic association with that panel and visible clearance from ticks, units, unit brackets, titles, and the plot frame. Verify a complete, correctly ordered label sequence across multi-panel figures.
 - Fail any text element that visually touches another glyph, line, marker, or patch boundary even when bounding boxes do not technically overlap. Reserve visible whitespace around it.
 - Place labels outside their associated marker or patch when an internal label reduces readability. Preserve an unambiguous spatial association through proximity and alignment.
 - Audit vertical and horizontal whitespace explicitly among the axes, colour bars, legends, footer annotations, and any explicitly requested titles. Keep requested titles and explanatory footer text subordinate to the plotted data.
